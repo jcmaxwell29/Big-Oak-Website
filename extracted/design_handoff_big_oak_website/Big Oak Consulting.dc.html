@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/industry-5749ed63-89af-4f73-b02a-0255f5db9a7a/styles.css">
+<script src="_ds/industry-5749ed63-89af-4f73-b02a-0255f5db9a7a/_ds_bundle.js"></script>
+<style>
+:root{
+  --color-bg:#f1ede4; --color-surface:#e8e3d7; --color-text:#2a2a1d;
+  --color-accent:#6f7a42; --color-accent-2:#7a6a45;
+  --color-divider:color-mix(in srgb,#2a2a1d 16%,transparent);
+  --color-accent-100:#e9ebda; --color-accent-200:#d6dbbb; --color-accent-300:#c0c89c;
+  --color-accent-400:#a4ae7c; --color-accent-500:#88925d; --color-accent-600:#6f7a42;
+  --color-accent-700:#5a6335; --color-accent-800:#454b28; --color-accent-900:#2f331b;
+  --color-accent-2-100:#ece7da; --color-accent-2-200:#dcd3bd; --color-accent-2-300:#c8bb9d;
+  --color-accent-2-400:#b0a07d; --color-accent-2-500:#96855f; --color-accent-2-600:#7a6a45;
+  --color-accent-2-700:#635538; --color-accent-2-800:#4b402a; --color-accent-2-900:#33291c;
+}
+body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body)}
+a{color:var(--color-accent-700);text-decoration:none}
+a:hover{color:var(--color-accent-900)}
+*:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+.blueprint,.card{border-width:2px;border-color:#3f4a2c}
+.blueprint{box-shadow:inset 0 0 0 1px color-mix(in srgb,#3f4a2c 16%,transparent)}
+.blueprint>.corner{display:none}
+.table th{border-bottom-width:2px;border-bottom-color:#3f4a2c}
+.table td{border-bottom-color:color-mix(in srgb,#3f4a2c 28%,transparent)}
+.input{border-width:2px;border-color:color-mix(in srgb,#3f4a2c 70%,transparent)}
+.input:hover{border-color:#3f4a2c}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:var(--color-bg);position:relative;overflow:hidden">
+
+  <sc-if value="{{ showWatermark }}" hint-placeholder-val="{{ true }}">
+    <img src="assets/big-oak-logo.png" alt="" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:64vw;max-width:900px;opacity:0.055;filter:grayscale(1) contrast(1.1);pointer-events:none;z-index:0" />
+  </sc-if>
+
+  <header style="position:sticky;top:0;z-index:20;background:color-mix(in srgb, #f1ede4 92%, transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--color-divider)">
+    <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:28px;padding:14px 28px">
+      <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:11px;margin-right:auto;color:var(--color-text)">
+        <img src="assets/big-oak-logo.png" alt="Big Oak Consulting" style="height:42px;width:auto;display:block" />
+        <span style="font-family:var(--font-heading);font-weight:600;font-size:19px;letter-spacing:0.04em;line-height:1.05;text-transform:uppercase">Big Oak<br /><span style="font-size:11px;letter-spacing:0.22em;color:var(--color-accent-700)">Consulting</span></span>
+      </a>
+      <nav style="display:flex;align-items:center;gap:22px">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="7">
+          <a href="#" onClick="{{ item.go }}" style="font-family:var(--font-heading);font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:{{ item.color }};padding-bottom:2px;border-bottom:1px solid {{ item.rule }}" style-hover="color:var(--color-accent-700)">{{ item.label }}</a>
+        </sc-for>
+      </nav>
+      <a href="#" onClick="{{ goSignin }}" class="btn btn-primary blueprint" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:13px;padding:8px 16px;background:var(--color-accent-700);border-color:var(--color-accent-700);color:#f6f3ec">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        Client Login
+      </a>
+    </div>
+  </header>
+
+  <main style="position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 28px 96px">
+
+    <!-- HOME -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <section style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:end;padding:88px 0 64px;border-bottom:1px solid var(--color-divider)">
+        <div>
+          <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Safety Consulting · OSHA Training · EHS Programs</div>
+          <h1 style="font-family:var(--font-heading);font-weight:600;font-size:68px;line-height:0.98;margin:0 0 22px;letter-spacing:-0.01em;text-wrap:balance">Safety that holds up in the field, not just in the binder.</h1>
+          <p style="font-size:18px;line-height:1.6;max-width:52ch;margin:0 0 32px;color:color-mix(in srgb,var(--color-text) 82%,transparent);text-wrap:pretty">We help small contractors and crews in utilities, natural gas, telecom and energized work build safety programs they can actually run — written plainly, trained in person, and sized to the way you already work.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a href="#" onClick="{{ goContact }}" class="btn btn-primary blueprint" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:14px;padding:13px 24px;background:var(--color-accent-700);border-color:var(--color-accent-700);color:#f6f3ec">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              Request a proposal
+            </a>
+            <a href="#" onClick="{{ goServices }}" class="btn btn-secondary" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:14px;padding:13px 24px">See what we do</a>
+            <a href="tel:15550142" class="btn btn-ghost" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:14px;padding:13px 18px;color:var(--color-accent-700)">(555) 014-2200</a>
+          </div>
+        </div>
+        <div class="blueprint" style="padding:26px 24px;display:flex;flex-direction:column;gap:20px">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">By the numbers</div>
+          <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+            <div style="display:flex;align-items:baseline;gap:14px;border-top:1px solid color-mix(in srgb,#2a2a1d 10%,transparent);padding-top:14px">
+              <div style="font-family:var(--font-heading);font-size:38px;line-height:1;color:var(--color-accent-700);min-width:104px">{{ s.n }}</div>
+              <div style="font-size:14px;line-height:1.4;color:color-mix(in srgb,var(--color-text) 75%,transparent)">{{ s.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="padding:64px 0">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:34px">
+          <h2 style="font-family:var(--font-heading);font-size:36px;margin:0;letter-spacing:0.01em">Where we help</h2>
+          <a href="#" onClick="{{ goServices }}" style="font-family:var(--font-heading);font-size:13px;letter-spacing:0.14em;text-transform:uppercase">All services →</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px">
+          <sc-for list="{{ servicePreview }}" as="s" hint-placeholder-count="3">
+            <div class="card blueprint" style="padding:24px 22px 22px;gap:12px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="card-kicker" style="color:var(--color-accent-700);letter-spacing:0.18em">{{ s.no }}</div>
+              <div style="font-family:var(--font-heading);font-size:24px;line-height:1.1">{{ s.title }}</div>
+              <p style="font-size:15px;line-height:1.55;margin:0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ s.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="padding:56px 34px;background:var(--color-accent-900);color:#f2efe6;display:grid;grid-template-columns:0.9fr 1.1fr;gap:48px;align-items:center">
+        <div>
+          <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:16px">Industries served</div>
+          <h2 style="font-family:var(--font-heading);font-size:40px;line-height:1.02;margin:0">We speak the trade before we speak the standard.</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2px 32px">
+          <sc-for list="{{ industries }}" as="i" hint-placeholder-count="8">
+            <div style="font-size:15px;padding:11px 0;border-bottom:1px solid color-mix(in srgb,#f2efe6 18%,transparent);display:flex;justify-content:space-between;gap:12px">
+              <span>{{ i.name }}</span>
+              <span style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.1em;color:var(--color-accent-300)">{{ i.tag }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="padding:72px 0 64px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px">
+        <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="3">
+          <div class="blueprint" style="padding:26px 24px;display:flex;flex-direction:column;gap:16px">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <p style="font-family:var(--font-heading);font-size:21px;line-height:1.28;margin:0;text-wrap:pretty">{{ t.quote }}</p>
+            <div style="margin-top:auto;font-size:13px;line-height:1.4;color:color-mix(in srgb,var(--color-text) 62%,transparent)">{{ t.who }}<br />{{ t.org }}</div>
+          </div>
+        </sc-for>
+      </section>
+
+      <section class="blueprint" style="padding:44px 36px;display:flex;align-items:center;gap:36px;flex-wrap:wrap;justify-content:space-between">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div>
+          <h2 style="font-family:var(--font-heading);font-size:34px;margin:0 0 8px">Not sure where your gaps are?</h2>
+          <p style="margin:0;font-size:16px;color:color-mix(in srgb,var(--color-text) 78%,transparent)">A site assessment takes half a day and ends with a written punch list — no obligation after it.</p>
+        </div>
+        <a href="#" onClick="{{ goContact }}" class="btn btn-primary blueprint" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:14px;padding:13px 24px;background:var(--color-accent-700);border-color:var(--color-accent-700);color:#f6f3ec">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          Schedule an assessment
+        </a>
+      </section>
+    </sc-if>
+
+    <!-- SERVICES -->
+    <sc-if value="{{ isServices }}" hint-placeholder-val="{{ true }}">
+      <section style="padding:76px 0 44px;max-width:62ch">
+        <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:18px">Services</div>
+        <h1 style="font-family:var(--font-heading);font-size:56px;line-height:1;margin:0 0 20px">Four things, done thoroughly.</h1>
+        <p style="font-size:18px;line-height:1.6;margin:0;color:color-mix(in srgb,var(--color-text) 80%,transparent)">We stay narrow on purpose. Every engagement starts with a walk of the work and ends with something your crew can use on Monday.</p>
+      </section>
+      <section style="display:flex;flex-direction:column;gap:0;border-top:1px solid var(--color-divider)">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:88px 1fr 1fr;gap:36px;padding:38px 0;border-bottom:1px solid var(--color-divider)">
+            <div style="font-family:var(--font-heading);font-size:14px;letter-spacing:0.14em;color:var(--color-accent-700)">{{ s.no }}</div>
+            <div>
+              <h2 style="font-family:var(--font-heading);font-size:32px;margin:0 0 12px;line-height:1.05">{{ s.title }}</h2>
+              <p style="font-size:16px;line-height:1.6;margin:0;color:color-mix(in srgb,var(--color-text) 80%,transparent);max-width:44ch">{{ s.body }}</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0">
+              <sc-for list="{{ s.items }}" as="it" hint-placeholder-count="4">
+                <div style="font-size:14px;padding:9px 0;border-bottom:1px solid color-mix(in srgb,#2a2a1d 8%,transparent);display:flex;gap:12px">
+                  <span style="color:var(--color-accent-700)">+</span><span>{{ it }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+      <section style="padding:56px 0 0;display:flex;gap:14px;flex-wrap:wrap">
+        <a href="#" onClick="{{ goContact }}" class="btn btn-primary blueprint" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:14px;padding:13px 24px;background:var(--color-accent-700);border-color:var(--color-accent-700);color:#f6f3ec">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          Request a proposal
+        </a>
+        <a href="#" onClick="{{ goTraining }}" class="btn btn-secondary" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:14px;padding:13px 24px">Browse the course catalog</a>
+      </section>
+    </sc-if>
+
+    <!-- TRAINING -->
+    <sc-if value="{{ isTraining }}" hint-placeholder-val="{{ true }}">
+      <section style="padding:76px 0 36px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:end">
+        <div>
+          <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:18px">Training catalog</div>
+          <h1 style="font-family:var(--font-heading);font-size:56px;line-height:1;margin:0 0 20px">Courses taught by people who did the work.</h1>
+          <p style="font-size:17px;line-height:1.6;margin:0;color:color-mix(in srgb,var(--color-text) 80%,transparent);max-width:52ch">Thirty-five courses across heavy equipment, traffic control, OSHA outreach and worker safety programs — all deliverable at your facility. Call for current scheduling and pricing.</p>
+        </div>
+        <div class="blueprint" style="padding:22px">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:12px">Filter by track</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ tracks }}" as="t" hint-placeholder-count="5">
+              <button onClick="{{ t.pick }}" class="btn" style="font-family:var(--font-heading);font-size:13px;letter-spacing:0.1em;text-transform:uppercase;padding:7px 13px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};border:1px solid {{ t.bd }}">{{ t.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+      <section style="padding:30px 0 0;display:flex;flex-direction:column;gap:44px">
+        <sc-for list="{{ courseGroups }}" as="g" hint-placeholder-count="4">
+          <div>
+            <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px">
+              <h2 style="font-family:var(--font-heading);font-size:30px;margin:0">{{ g.title }}</h2>
+              <span style="flex:1;height:2px;background:#3f4a2c;opacity:0.5"></span>
+              <span style="font-family:var(--font-heading);font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700)">{{ g.count }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px">
+              <sc-for list="{{ g.courses }}" as="c" hint-placeholder-count="6">
+                <div style="display:flex;gap:14px;padding:13px 0;border-bottom:1px solid color-mix(in srgb,#3f4a2c 28%,transparent);font-size:16px;line-height:1.4">
+                  <span style="color:var(--color-accent-700);font-family:var(--font-heading)">{{ c.no }}</span>
+                  <span>{{ c.name }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+    </sc-if>
+
+    <!-- TEAM -->
+    <sc-if value="{{ isTeam }}" hint-placeholder-val="{{ true }}">
+      <section style="padding:76px 0 44px;max-width:60ch">
+        <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:18px">Who we are</div>
+        <h1 style="font-family:var(--font-heading);font-size:56px;line-height:1;margin:0 0 20px">Small firm. Long resumes.</h1>
+        <p style="font-size:18px;line-height:1.6;margin:0;color:color-mix(in srgb,var(--color-text) 80%,transparent)">Everyone here came out of the field — line work, gas distribution, outside plant, plant EHS. You get the same person from the first walkthrough through the last card issued.</p>
+      </section>
+      <section style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding-bottom:44px">
+        <sc-for list="{{ team }}" as="p" hint-placeholder-count="6">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="blueprint" style="aspect-ratio:4/5;background:var(--color-surface);display:flex;align-items:center;justify-content:center">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <span style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Portrait</span>
+            </div>
+            <div>
+              <div style="font-family:var(--font-heading);font-size:24px;line-height:1.05">{{ p.name }}</div>
+              <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:5px 0 10px;font-family:var(--font-heading)">{{ p.role }}</div>
+              <p style="font-size:15px;line-height:1.55;margin:0 0 12px;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ p.bio }}</p>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <sc-for list="{{ p.creds }}" as="c" hint-placeholder-count="2">
+                  <span class="tag tag-outline" style="font-family:var(--font-heading);letter-spacing:0.08em">{{ c }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+      <section class="blueprint" style="padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <p style="margin:0;font-size:16px;max-width:56ch;color:color-mix(in srgb,var(--color-text) 80%,transparent)">Credentials, OSHA authorizations and insurance certificates are listed in full on our credentials sheet.</p>
+        <a href="#" onClick="{{ goCerts }}" class="btn btn-secondary" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:14px;padding:12px 22px">View credentials</a>
+      </section>
+    </sc-if>
+
+    <!-- CLIENTS -->
+    <sc-if value="{{ isClients }}" hint-placeholder-val="{{ true }}">
+      <section style="padding:76px 0 44px;max-width:60ch">
+        <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:18px">Clients</div>
+        <h1 style="font-family:var(--font-heading);font-size:56px;line-height:1;margin:0 0 20px">Who we work with.</h1>
+        <p style="font-size:18px;line-height:1.6;margin:0;color:color-mix(in srgb,var(--color-text) 80%,transparent)">Mostly contractors between five and two hundred people, plus the utilities and municipalities they answer to. Names below are placeholders until you send us the real list.</p>
+      </section>
+      <section style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--color-divider);border:1px solid var(--color-divider);margin-bottom:48px">
+        <sc-for list="{{ clientLogos }}" as="c" hint-placeholder-count="12">
+          <div style="background:var(--color-bg);height:112px;display:flex;align-items:center;justify-content:center;padding:16px;text-align:center;font-family:var(--font-heading);font-size:15px;letter-spacing:0.1em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">{{ c }}</div>
+        </sc-for>
+      </section>
+      <section>
+        <h2 style="font-family:var(--font-heading);font-size:34px;margin:0 0 24px">Recent engagements</h2>
+        <table class="table">
+          <thead><tr><th>Client type</th><th>Scope</th><th>Sector</th><th>Status</th></tr></thead>
+          <tbody>
+            <sc-for list="{{ engagements }}" as="e" hint-placeholder-count="6">
+              <tr>
+                <td style="font-family:var(--font-heading);font-size:17px">{{ e.client }}</td>
+                <td>{{ e.scope }}</td>
+                <td style="color:color-mix(in srgb,var(--color-text) 65%,transparent)">{{ e.sector }}</td>
+                <td><span class="tag tag-accent" style="background:var(--color-accent-100);color:var(--color-accent-800)">{{ e.status }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </section>
+    </sc-if>
+
+    <!-- RESOURCES -->
+    <sc-if value="{{ isResources }}" hint-placeholder-val="{{ true }}">
+      <section style="padding:76px 0 44px;max-width:60ch">
+        <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:18px">Resources</div>
+        <h1 style="font-family:var(--font-heading);font-size:56px;line-height:1;margin:0 0 20px">Take these with you.</h1>
+        <p style="font-size:18px;line-height:1.6;margin:0;color:color-mix(in srgb,var(--color-text) 80%,transparent)">Templates and checklists we hand out on site. Free, no form wall. Clients get the editable versions in the portal.</p>
+      </section>
+      <section style="display:grid;grid-template-columns:repeat(2,1fr);gap:26px">
+        <sc-for list="{{ resources }}" as="r" hint-placeholder-count="6">
+          <div class="card blueprint" style="padding:24px;gap:10px">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">
+              <div class="card-kicker" style="color:var(--color-accent-700);letter-spacing:0.18em">{{ r.kind }}</div>
+              <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.1em;color:color-mix(in srgb,var(--color-text) 50%,transparent)">{{ r.meta }}</div>
+            </div>
+            <div style="font-family:var(--font-heading);font-size:23px;line-height:1.1">{{ r.title }}</div>
+            <p style="font-size:15px;line-height:1.55;margin:0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ r.body }}</p>
+            <a href="#" style="font-family:var(--font-heading);font-size:13px;letter-spacing:0.14em;text-transform:uppercase;margin-top:6px">Download →</a>
+          </div>
+        </sc-for>
+      </section>
+    </sc-if>
+
+    <!-- CERTIFICATIONS -->
+    <sc-if value="{{ isCerts }}" hint-placeholder-val="{{ true }}">
+      <section style="padding:76px 0 44px;max-width:60ch">
+        <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:18px">Credentials</div>
+        <h1 style="font-family:var(--font-heading);font-size:56px;line-height:1;margin:0 0 20px">Authorizations and credentials.</h1>
+        <p style="font-size:18px;line-height:1.6;margin:0;color:color-mix(in srgb,var(--color-text) 80%,transparent)">Everything a prequalification packet asks for, in one place. Certificates and W-9 available on request.</p>
+      </section>
+      <section style="display:grid;grid-template-columns:repeat(2,1fr);gap:48px;padding-bottom:48px">
+        <div>
+          <h2 style="font-family:var(--font-heading);font-size:26px;margin:0 0 16px">Authorizations</h2>
+          <sc-for list="{{ authorizations }}" as="a" hint-placeholder-count="5">
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid color-mix(in srgb,#2a2a1d 10%,transparent);font-size:15px">
+              <span>{{ a.name }}</span>
+              <span style="font-family:var(--font-heading);font-size:13px;letter-spacing:0.08em;color:var(--color-accent-700);white-space:nowrap">{{ a.ref }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div>
+          <h2 style="font-family:var(--font-heading);font-size:26px;margin:0 0 16px">Individual certifications</h2>
+          <sc-for list="{{ individualCerts }}" as="a" hint-placeholder-count="5">
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid color-mix(in srgb,#2a2a1d 10%,transparent);font-size:15px">
+              <span>{{ a.name }}</span>
+              <span style="font-family:var(--font-heading);font-size:13px;letter-spacing:0.08em;color:var(--color-accent-700);white-space:nowrap">{{ a.ref }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+      <section class="blueprint" style="padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <p style="margin:0;font-size:16px;max-width:52ch;color:color-mix(in srgb,var(--color-text) 80%,transparent)">Need us added to ISNetworld, Avetta or a client-specific portal? Send the invitation and we'll handle the paperwork.</p>
+        <a href="#" onClick="{{ goContact }}" class="btn btn-secondary" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:14px;padding:12px 22px">Send an invitation</a>
+      </section>
+    </sc-if>
+
+    <!-- INSIGHTS -->
+    <sc-if value="{{ isInsights }}" hint-placeholder-val="{{ true }}">
+      <section style="padding:76px 0 44px;max-width:60ch">
+        <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:18px">Field notes</div>
+        <h1 style="font-family:var(--font-heading);font-size:56px;line-height:1;margin:0 0 20px">What we're seeing on jobsites.</h1>
+        <p style="font-size:18px;line-height:1.6;margin:0;color:color-mix(in srgb,var(--color-text) 80%,transparent)">Short pieces on rule changes, citations we see repeat, and how to fix them without buying anything.</p>
+      </section>
+      <section style="display:flex;flex-direction:column;border-top:1px solid var(--color-divider)">
+        <sc-for list="{{ posts }}" as="p" hint-placeholder-count="5">
+          <a href="#" style="display:grid;grid-template-columns:150px 1fr 140px;gap:32px;padding:28px 0;border-bottom:1px solid var(--color-divider);color:var(--color-text);align-items:baseline" style-hover="background:color-mix(in srgb,#2a2a1d 3%,transparent)">
+            <div style="font-family:var(--font-heading);font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">{{ p.date }}</div>
+            <div>
+              <div style="font-family:var(--font-heading);font-size:27px;line-height:1.1;margin-bottom:8px">{{ p.title }}</div>
+              <p style="margin:0;font-size:15px;line-height:1.55;color:color-mix(in srgb,var(--color-text) 75%,transparent);max-width:62ch">{{ p.dek }}</p>
+            </div>
+            <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700);text-align:right">{{ p.topic }}</div>
+          </a>
+        </sc-for>
+      </section>
+    </sc-if>
+
+    <!-- FAQ -->
+    <sc-if value="{{ isFaq }}" hint-placeholder-val="{{ true }}">
+      <section style="padding:76px 0 44px;max-width:60ch">
+        <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:18px">FAQ</div>
+        <h1 style="font-family:var(--font-heading);font-size:56px;line-height:1;margin:0 0 20px">Questions we get every week.</h1>
+      </section>
+      <section style="border-top:1px solid var(--color-divider);max-width:900px">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="7">
+          <div style="border-bottom:1px solid var(--color-divider)">
+            <button onClick="{{ f.toggle }}" style="width:100%;background:none;border:none;padding:22px 0;display:flex;gap:24px;align-items:baseline;cursor:pointer;text-align:left;font-family:var(--font-heading);font-size:23px;color:var(--color-text)">
+              <span style="color:var(--color-accent-700);font-size:18px">{{ f.mark }}</span>
+              <span>{{ f.q }}</span>
+            </button>
+            <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0 0 24px 42px;font-size:16px;line-height:1.6;max-width:64ch;color:color-mix(in srgb,var(--color-text) 80%,transparent)">{{ f.a }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </section>
+    </sc-if>
+
+    <!-- CONTACT -->
+    <sc-if value="{{ isContact }}" hint-placeholder-val="{{ true }}">
+      <section style="padding:76px 0 48px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;align-items:start">
+        <div>
+          <div style="font-family:var(--font-heading);font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:18px">Contact</div>
+          <h1 style="font-family:var(--font-heading);font-size:52px;line-height:1;margin:0 0 20px">Tell us about the work.</h1>
+          <p style="font-size:17px;line-height:1.6;margin:0 0 32px;color:color-mix(in srgb,var(--color-text) 80%,transparent)">We answer every inquiry within one business day. If it's urgent — an inspection, an incident, a shutdown — call and someone picks up.</p>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <sc-for list="{{ contactLines }}" as="c" hint-placeholder-count="4">
+              <div style="padding:14px 0;border-top:1px solid color-mix(in srgb,#2a2a1d 12%,transparent)">
+                <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:4px">{{ c.label }}</div>
+                <div style="font-size:17px">{{ c.value }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="blueprint" style="padding:36px 34px">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:48px 0;text-align:center">
+              <div style="font-family:var(--font-heading);font-size:34px;margin-bottom:12px">Thanks — it's in.</div>
+              <p style="font-size:16px;color:color-mix(in srgb,var(--color-text) 78%,transparent);margin:0 auto 24px;max-width:40ch">We'll be back to you within one business day, usually with two or three questions before we quote.</p>
+              <button onClick="{{ resetForm }}" class="btn btn-secondary" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:13px;padding:11px 20px;cursor:pointer">Send another</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+              <div class="field"><label>Name</label><input class="input" value="{{ form.name }}" onChange="{{ setName }}" placeholder="Full name" /></div>
+              <div class="field"><label>Company</label><input class="input" value="{{ form.company }}" onChange="{{ setCompany }}" placeholder="Company name" /></div>
+              <div class="field"><label>Email</label><input class="input" type="email" value="{{ form.email }}" onChange="{{ setEmail }}" placeholder="you@company.com" /></div>
+              <div class="field"><label>Phone</label><input class="input" value="{{ form.phone }}" onChange="{{ setPhone }}" placeholder="(555) 000-0000" /></div>
+              <div class="field"><label>Service needed</label>
+                <select class="input" value="{{ form.service }}" onChange="{{ setService }}" style="appearance:none">
+                  <sc-for list="{{ serviceOptions }}" as="o" hint-placeholder-count="5">
+                    <option value="{{ o }}">{{ o }}</option>
+                  </sc-for>
+                </select>
+              </div>
+              <div class="field"><label>Site location</label><input class="input" value="{{ form.site }}" onChange="{{ setSite }}" placeholder="City, state" /></div>
+              <div class="field" style="grid-column:1 / -1"><label>What's going on?</label>
+                <textarea class="input" rows="5" value="{{ form.message }}" onChange="{{ setMessage }}" placeholder="Crew size, scope, deadlines, anything a regulator has already told you." style="resize:vertical;font-family:var(--font-body)"></textarea>
+              </div>
+              <div style="grid-column:1 / -1;display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+                <button onClick="{{ submit }}" class="btn btn-primary blueprint" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:14px;padding:13px 26px;cursor:pointer;background:var(--color-accent-700);border-color:var(--color-accent-700);color:#f6f3ec">
+                  <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  Send inquiry
+                </button>
+                <span style="font-size:13px;color:{{ noticeColor }}">{{ notice }}</span>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- SIGN IN -->
+    <sc-if value="{{ isSignin }}" hint-placeholder-val="{{ true }}">
+      <section style="padding:96px 0;display:flex;justify-content:center">
+        <div class="blueprint" style="width:min(430px,100%);padding:40px 36px;background:color-mix(in srgb,#f1ede4 70%,transparent)">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:14px">Client portal</div>
+          <h1 style="font-family:var(--font-heading);font-size:38px;line-height:1;margin:0 0 10px">Sign in</h1>
+          <p style="font-size:15px;line-height:1.55;margin:0 0 28px;color:color-mix(in srgb,var(--color-text) 75%,transparent)">Training rosters, cards, editable program documents and inspection reports.</p>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="field"><label>Email</label><input class="input" type="email" placeholder="you@company.com" /></div>
+            <div class="field"><label>Password</label><input class="input" type="password" placeholder="••••••••" /></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
+              <label style="display:flex;align-items:center;gap:8px;color:color-mix(in srgb,var(--color-text) 75%,transparent)"><input type="checkbox" style="accent-color:var(--color-accent-700)" /> Keep me signed in</label>
+              <a href="#">Forgot password?</a>
+            </div>
+            <button class="btn btn-primary blueprint" style="font-family:var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;font-size:14px;padding:13px;cursor:pointer;justify-content:center;background:var(--color-accent-700);border-color:var(--color-accent-700);color:#f6f3ec">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              Sign in
+            </button>
+            <p style="font-size:13px;text-align:center;margin:6px 0 0;color:color-mix(in srgb,var(--color-text) 65%,transparent)">Need access? <a href="#" onClick="{{ goContact }}">Ask us for an account</a>.</p>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+  </main>
+
+  <footer style="position:relative;z-index:1;background:var(--color-accent-900);color:#eae6da;padding:56px 28px 34px">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:44px">
+      <div>
+        <div style="font-family:var(--font-heading);font-size:22px;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px">Big Oak Consulting</div>
+        <p style="font-size:15px;line-height:1.6;margin:0;color:color-mix(in srgb,#eae6da 78%,transparent);max-width:36ch">Safety consulting, OSHA training and program development for contractors and crews.</p>
+      </div>
+      <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+        <div>
+          <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:14px">{{ col.title }}</div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="4">
+              <a href="#" onClick="{{ l.go }}" style="font-size:15px;color:#eae6da" style-hover="color:var(--color-accent-300)">{{ l.label }}</a>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="max-width:1180px;margin:44px auto 0;padding-top:20px;border-top:1px solid color-mix(in srgb,#eae6da 20%,transparent);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13px;color:color-mix(in srgb,#eae6da 62%,transparent)">
+      <span>© 2026 Big Oak Consulting. All rights reserved.</span>
+      <span>OSHA-authorized outreach trainer · Fully insured · Placeholder contact details</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showWatermark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Options&quot;},&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;services&quot;,&quot;training&quot;,&quot;team&quot;,&quot;clients&quot;,&quot;resources&quot;,&quot;certs&quot;,&quot;insights&quot;,&quot;faq&quot;,&quot;contact&quot;,&quot;signin&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Options&quot;}}">
+class Component extends DCLogic {
+  state = {
+    page: this.props.startPage || 'home', track: 'All', openFaq: 0, sent: false, notice: '',
+    form: { name: '', company: '', email: '', phone: '', service: 'OSHA training', site: '', message: '' }
+  };
+
+  nav(page) { return (e) => { if (e) e.preventDefault(); this.setState({ page }); window.scrollTo(0, 0); }; }
+  setField(k) { return (e) => this.setState(s => ({ form: Object.assign({}, s.form, { [k]: e.target.value }) })); }
+
+  renderVals() {
+    const p = this.state.page;
+    const accent = 'var(--color-accent-700)';
+    const items = [
+      ['Home', 'home'], ['Services', 'services'], ['Training', 'training'],
+      ['Team', 'team'], ['Clients', 'clients'], ['Resources', 'resources'],
+      ['Insights', 'insights'], ['Contact', 'contact']
+    ];
+    const link = (label, page) => ({ label, go: this.nav(page) });
+
+    const faqData = [
+      ['Do you work with companies our size?', 'That is most of our work. Half our clients have fewer than twenty employees, and the programs we write are scaled to what a small crew can actually maintain — not a 300-page manual nobody opens.'],
+      ['How fast can you get a class on our calendar?', 'On-site classes usually land within two to three weeks. If you have an inspection date or a client deadline, tell us and we will work backwards from it.'],
+      ['Are your training cards accepted by general contractors?', 'Yes. OSHA 10 and 30 outreach cards are issued through an authorized trainer, and NFPA 70E, confined space and competent-person courses come with signed certificates and rosters you can hand to a prequalifier.'],
+      ['Can you write documents against our existing procedures?', 'That is the preferred way. We start from what you already do, keep the language your crews use, and only rewrite the parts that would not hold up in an inspection.'],
+      ['Do you do energized work and arc flash?', 'Yes — NFPA 70E program development, incident-energy analysis coordination, boundary and PPE tables, and the training that goes with them.'],
+      ['What does an assessment cost?', 'The first walkthrough is a flat half-day fee that we credit back if you engage us for the work it identifies. No retainer, no subscription.'],
+      ['Will you be there during an OSHA inspection?', 'We can be, and we frequently are. We also handle informal conference prep and abatement documentation after the fact.']
+    ];
+
+    return {
+      showWatermark: this.props.showWatermark !== false,
+      isHome: p === 'home', isServices: p === 'services', isTraining: p === 'training',
+      isTeam: p === 'team', isClients: p === 'clients', isResources: p === 'resources',
+      isCerts: p === 'certs', isInsights: p === 'insights', isFaq: p === 'faq',
+      isContact: p === 'contact', isSignin: p === 'signin',
+
+      goHome: this.nav('home'), goServices: this.nav('services'), goTraining: this.nav('training'),
+      goContact: this.nav('contact'), goSignin: this.nav('signin'), goCerts: this.nav('certs'),
+
+      navItems: items.map(([label, page]) => ({
+        label, go: this.nav(page),
+        color: p === page ? accent : 'var(--color-text)',
+        rule: p === page ? accent : 'transparent'
+      })),
+
+      stats: [
+        { n: '30 yrs', label: 'Consulting on utility, gas and telecom jobsites' },
+        { n: '6,400+', label: 'Workers trained and carded' },
+        { n: '35', label: 'Courses in the catalog, all deliverable on site' },
+        { n: 'CSP · CHST', label: 'Credentialed practitioners on every engagement' }
+      ],
+
+      servicePreview: [
+        { no: '01', title: 'OSHA Training', body: 'Outreach 10 and 30, plus the competent-person and refresher courses your contracts require — taught in your yard, in plain language.' },
+        { no: '02', title: 'EHS Support', body: 'Fractional safety management: audits, incident investigation, recordkeeping, inspection support and the reporting your clients ask for.' },
+        { no: '03', title: 'Document Development', body: 'Safety manuals, written programs, JSAs and procedures built from how your crews actually work — not a template with your logo dropped in.' }
+      ],
+
+      industries: [
+        { name: 'Electric utilities', tag: 'T&D · substation' },
+        { name: 'Natural gas', tag: 'distribution · OQ' },
+        { name: 'Telecom', tag: 'OSP · aerial' },
+        { name: 'Energized work', tag: 'NFPA 70E' },
+        { name: 'Government & municipal', tag: 'public works' },
+        { name: 'Heavy civil', tag: 'excavation' },
+        { name: 'Renewables', tag: 'solar · storage' },
+        { name: 'General industry', tag: '1910' }
+      ],
+
+      testimonials: [
+        { quote: 'They rewrote our manual in three weeks and it finally sounds like us. Our guys read it.', who: 'Operations Manager', org: 'Gas distribution contractor, 40 employees' },
+        { quote: 'Showed up the morning of the inspection and knew our site better than we did.', who: 'Owner', org: 'Telecom OSP contractor' },
+        { quote: 'First trainer our linemen didn\u2019t tune out. He\u2019d done the work.', who: 'Safety Coordinator', org: 'Municipal electric utility' }
+      ],
+
+      services: [
+        { no: '01', title: 'OSHA Training', body: 'Authorized outreach training plus the trade-specific courses your prequalification packets keep asking for. On site, on your shift schedule.', items: ['OSHA 10 & 30 — Construction and General Industry', 'NFPA 70E electrical safety', 'Confined space entry & rescue awareness', 'Excavation competent person', 'Fall protection competent person', 'Refresher and annual retraining'] },
+        { no: '02', title: 'EHS Support', body: 'Ongoing safety management without a full-time hire. We work as your safety department at whatever cadence the work needs.', items: ['Mock OSHA audits & gap analysis', 'Incident investigation and root cause', 'OSHA 300 log and recordkeeping review', 'Inspection representation & abatement', 'Contractor prequalification portals', 'Monthly toolbox talks and site walks'] },
+        { no: '03', title: 'Document Development', body: 'Written programs that survive an inspection and still make sense to a first-year apprentice.', items: ['Safety & health manuals', 'Written programs (LOTO, HazCom, respiratory)', 'Job safety analyses and task procedures', 'Emergency action & site-specific plans', 'Arc flash and energized work procedures', 'Forms, permits and inspection checklists'] },
+        { no: '04', title: 'Assessments', body: 'A structured look at where you actually stand, ending in a written punch list ranked by exposure — not by how easy it is to sell.', items: ['Half-day site assessment', 'Program document review', 'Training matrix build-out', 'Insurance and EMR improvement planning'] }
+      ],
+
+      courseGroups: (() => {
+        const groups = [
+          { title: 'Heavy Equipment', courses: [
+            'Backhoe Operator Safety Awareness',
+            'Front Loader Operator Safety Awareness',
+            'Skid Steer Operator Safety Awareness',
+            'Forklift Operator Safety Awareness',
+            'Crane Truck Operator Safety Awareness',
+            'Vac-Truck Operator Safety Awareness',
+            'Aerial & Scissor Lift for the Competent Person',
+            'Mowers and Other Landscaping Equipment'
+          ] },
+          { title: 'MOT & Vehicle (FDOT)', courses: [
+            'FDOT (MOT) Intermediate Course',
+            'FDOT (MOT) Advanced Course',
+            'FDOT (MOT) Refresher — Advanced / Intermediate',
+            'FDOT (MOT) Flagger'
+          ] },
+          { title: 'OSHA Training', courses: [
+            '10-Hour Construction OSHA Certification Course',
+            '30-Hour Construction OSHA Certification Course',
+            'OSHA 10 — ET&D (Electrical Transmission & Distribution)',
+            'OSHA 20 — ET&D (Electrical Transmission & Distribution)',
+            'OSHA 300 & 300A Log Training'
+          ] },
+          { title: 'Special Worker Safety Programs', courses: [
+            'Confined Space Entry',
+            'Excavating Safety (Competent Person)',
+            'Fall Protection, Ladder Safety, PPE, Bloodborne Pathogens',
+            'NFPA 70E Electrical Safety Training',
+            'Lock-out / Tag-out, Electrical Safety, Arc Flash, Chemical Hazards',
+            'Machine Guarding, Electrical Safety, Arc Flash, Chemical Hazards',
+            'Hazardous Materials, Heat Stress, PPE, Crystalline Silica',
+            'Welding, Cutting & Brazing, Heat Stress, PPE, Ergonomics',
+            'Crane Safety & Gantry Crane Safety Awareness',
+            'Scaffolding',
+            'Tree Work Safety (Trimming, Felling, Limbing, Bucking, Chainsaws, Wood Chippers)',
+            'Respirator Training and Fit Testing (Quantitative)',
+            'Defensive Driving Course',
+            'Hurricane Preparedness — Preparing for Storms and Recovery',
+            'Office Safety, Emergency Evacuation, Ergonomics & Fire Extinguisher',
+            'Reasonable Suspicion Training for Supervisors',
+            'Crisis Management Training',
+            'CPR & First Aid'
+          ] }
+        ];
+        const t = this.state.track;
+        return groups
+          .filter(g => t === 'All' || g.title === t)
+          .map(g => ({
+            title: g.title,
+            count: g.courses.length + (g.courses.length === 1 ? ' course' : ' courses'),
+            courses: g.courses.map((name, i) => ({ name, no: String(i + 1).padStart(2, '0') }))
+          }));
+      })(),
+
+      tracks: ['All', 'Heavy Equipment', 'MOT & Vehicle (FDOT)', 'OSHA Training', 'Special Worker Safety Programs'].map(t => ({
+        label: t, pick: () => this.setState({ track: t }),
+        bg: this.state.track === t ? 'var(--color-accent-700)' : 'transparent',
+        fg: this.state.track === t ? '#f6f3ec' : 'var(--color-text)',
+        bd: this.state.track === t ? 'var(--color-accent-700)' : 'var(--color-divider)'
+      })),
+
+      team: [
+        { name: 'Ray Whitlock', role: 'Principal Consultant', bio: 'Twenty-two years in electric T&D, the last nine consulting. Runs the energized work and NFPA 70E practice.', creds: ['CSP', 'OSHA 500'] },
+        { name: 'Dana Kessler', role: 'EHS Director', bio: 'Built the safety department at a 180-person gas contractor before joining. Handles audits and inspection support.', creds: ['CHST', 'ASP'] },
+        { name: 'Marcus Ford', role: 'Lead Trainer', bio: 'Former journeyman lineman. Teaches most of the construction and fall protection catalog.', creds: ['OSHA 502', 'CPR/AED Instr.'] },
+        { name: 'Priya Raman', role: 'Documentation Lead', bio: 'Technical writer turned safety professional. Writes the manuals and procedures crews actually read.', creds: ['ASP', 'Tech. Writing'] },
+        { name: 'Tom Alvarez', role: 'Senior Consultant', bio: 'Outside plant and telecom background. Covers aerial, RF awareness and subcontractor management.', creds: ['CHST'] },
+        { name: 'Nicole Barrett', role: 'Client Programs', bio: 'Manages training calendars, rosters and prequalification portals so nobody misses a renewal date.', creds: ['STSC'] }
+      ],
+
+      clientLogos: ['Client logo', 'Client logo', 'Client logo', 'Client logo', 'Client logo', 'Client logo', 'Client logo', 'Client logo', 'Client logo', 'Client logo', 'Client logo', 'Client logo'],
+
+      engagements: [
+        { client: 'Gas distribution contractor', scope: 'Full safety manual rewrite + OQ training matrix', sector: 'Natural gas', status: 'Current' },
+        { client: 'Municipal electric utility', scope: 'NFPA 70E program and arc flash procedures', sector: 'Utilities', status: 'Current' },
+        { client: 'OSP telecom contractor', scope: 'OSHA 10/30 for 60 field staff', sector: 'Telecom', status: 'Current' },
+        { client: 'County public works', scope: 'Confined space program and rescue plan', sector: 'Government', status: 'Complete' },
+        { client: 'Heavy civil contractor', scope: 'Mock OSHA audit and abatement support', sector: 'Heavy civil', status: 'Complete' },
+        { client: 'Solar EPC', scope: 'Site-specific safety plans, 4 project sites', sector: 'Renewables', status: 'Complete' }
+      ],
+
+      resources: [
+        { kind: 'Checklist', meta: 'PDF · 2 pp', title: 'Pre-inspection walkthrough', body: 'The same list we walk when we arrive on site. Run it yourself before we do.' },
+        { kind: 'Template', meta: 'DOCX · editable', title: 'Job safety analysis form', body: 'A one-page JSA that a foreman will actually fill out at the tailboard.' },
+        { kind: 'Guide', meta: 'PDF · 6 pp', title: 'Training matrix starter', body: 'Which courses each role needs, with renewal intervals, for utility and telecom crews.' },
+        { kind: 'Checklist', meta: 'PDF · 1 p', title: 'Excavation daily inspection', body: 'Competent-person daily log sized to fit on a clipboard.' },
+        { kind: 'Guide', meta: 'PDF · 4 pp', title: 'What to do in the first hour', body: 'Incident response sequence: scene, care, notification, evidence, reporting clock.' },
+        { kind: 'Reference', meta: 'PDF · 2 pp', title: 'NFPA 70E boundary quick card', body: 'Approach boundaries and PPE categories in a format that fits a hard hat liner.' }
+      ],
+
+      authorizations: [
+        { name: 'OSHA Outreach — Construction (500/502)', ref: 'Authorized' },
+        { name: 'OSHA Outreach — General Industry (501)', ref: 'Authorized' },
+        { name: 'General liability & professional liability', ref: '$2M / $1M' },
+        { name: 'Workers compensation', ref: 'In force' },
+        { name: 'ISNetworld / Avetta registered', ref: 'On request' }
+      ],
+      individualCerts: [
+        { name: 'Certified Safety Professional', ref: 'CSP' },
+        { name: 'Construction Health & Safety Technician', ref: 'CHST' },
+        { name: 'Associate Safety Professional', ref: 'ASP' },
+        { name: 'Safety Trained Supervisor Construction', ref: 'STSC' },
+        { name: 'CPR / AED / First Aid Instructor', ref: 'AHA' }
+      ],
+
+      posts: [
+        { date: 'Aug 2026', topic: 'Recordkeeping', title: 'The 300 log mistake we find on almost every audit', dek: 'Restricted duty gets logged as first aid, and one recordable becomes an EMR problem two years later.' },
+        { date: 'Jul 2026', topic: 'Energized work', title: 'Your arc flash labels are probably out of date', dek: 'Equipment changed, the study did not. What to re-verify before the next outage season.' },
+        { date: 'Jun 2026', topic: 'Excavation', title: 'Competent person is a role, not a certificate', dek: 'What inspectors actually ask the person standing at the edge of the trench.' },
+        { date: 'May 2026', topic: 'Training', title: 'Why annual refreshers stop working after year three', dek: 'Same slides, same room, same result. How to rebuild a refresher around near misses.' },
+        { date: 'Apr 2026', topic: 'Programs', title: 'A safety manual nobody reads is a liability, not a defense', dek: 'Length is not diligence. What to cut from a 300-page manual and what to never cut.' }
+      ],
+
+      faqs: faqData.map(([q, a], i) => ({
+        q, a, open: this.state.openFaq === i, mark: this.state.openFaq === i ? '—' : '+',
+        toggle: () => this.setState(s => ({ openFaq: s.openFaq === i ? -1 : i }))
+      })),
+
+      contactLines: [
+        { label: 'Phone', value: '(555) 014-2200' },
+        { label: 'Email', value: 'hello@bigoakconsulting.com' },
+        { label: 'Office', value: '1420 Ridge Road, Suite 3 — placeholder address' },
+        { label: 'Hours', value: 'Mon–Fri 7:00–17:00 · after-hours line for incidents' }
+      ],
+
+      serviceOptions: ['OSHA training', 'EHS support', 'Document development', 'Site assessment', 'Not sure yet'],
+
+      form: this.state.form,
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      notice: this.state.notice,
+      noticeColor: this.state.notice ? 'var(--color-accent-800)' : 'transparent',
+      setName: this.setField('name'), setCompany: this.setField('company'),
+      setEmail: this.setField('email'), setPhone: this.setField('phone'),
+      setService: this.setField('service'), setSite: this.setField('site'),
+      setMessage: this.setField('message'),
+      submit: (e) => {
+        e.preventDefault();
+        const f = this.state.form;
+        if (!f.name || !f.email || !f.message) {
+          this.setState({ notice: 'Name, email and a short note, and we\u2019re set.' });
+          return;
+        }
+        this.setState({ sent: true, notice: '' });
+      },
+      resetForm: () => this.setState({ sent: false, notice: '', form: { name: '', company: '', email: '', phone: '', service: 'OSHA training', site: '', message: '' } }),
+
+      footerCols: [
+        { title: 'Services', links: [link('OSHA training', 'training'), link('EHS support', 'services'), link('Document development', 'services'), link('Assessments', 'services')] },
+        { title: 'Company', links: [link('Our team', 'team'), link('Clients', 'clients'), link('Credentials', 'certs'), link('Field notes', 'insights')] },
+        { title: 'More', links: [link('Resources', 'resources'), link('FAQ', 'faq'), link('Contact', 'contact'), link('Client login', 'signin')] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

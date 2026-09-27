@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Field Notes RSS feed — groundwork for the "auto-post new articles to LinkedIn" workflow.
+  Once real Field Notes articles exist with real URLs, add one <item> per post here
+  (newest first), then point a Zapier/Make.com "New RSS item -> Post to LinkedIn
+  Company Page" automation at this file's published URL. No LinkedIn API/partner
+  approval is needed for that path since Zapier/Make already hold it.
+
+  Currently empty (no real posts published yet) other than this placeholder.
+-->
+<rss version="2.0">
+  <channel>
+    <title>Big Oak Consulting — Field Notes</title>
+    <link>https://bigoakconsulting.example/field-notes.html</link>
+    <description>Short pieces from Big Oak Consulting on rule changes, citations we see repeat, and how to fix them.</description>
+    <language>en-us</language>
+
+    <!-- Example item shape to copy once a real post is published:
+    <item>
+      <title>Post title here</title>
+      <link>https://bigoakconsulting.example/field-notes/post-slug.html</link>
+      <guid>https://bigoakconsulting.example/field-notes/post-slug.html</guid>
+      <pubDate>Mon, 01 Sep 2026 00:00:00 GMT</pubDate>
+      <description>One or two sentence summary of the post.</description>
+    </item>
+    -->
+  </channel>
+</rss>
